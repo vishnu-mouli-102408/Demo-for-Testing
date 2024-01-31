@@ -16,11 +16,15 @@ export default function middleware(request: NextRequest) {
 
   // Specify the correct route based on the requests location
   if (country === BLOCKED_COUNTRY) {
-    return NextResponse.redirect(new URL("/client", request.url));
+    const url = request.nextUrl.clone();
+    url.pathname = "/client";
+    return NextResponse.rewrite(url);
   } else {
-    return NextResponse.redirect(new URL("/secret", request.url));
+    const url = request.nextUrl.clone();
+    url.pathname = "/secret";
+    return NextResponse.rewrite(url);
   }
 
   // Rewrite to URL
-  return NextResponse.rewrite(request.url);
+  //   return NextResponse.rewrite(request.url);
 }
