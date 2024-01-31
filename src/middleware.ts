@@ -16,9 +16,9 @@ export default function middleware(request: NextRequest) {
 
   // Specify the correct route based on the requests location
   if (country === BLOCKED_COUNTRY) {
-    return NextResponse.redirect("/client");
+    return NextResponse.redirect(new URL("/client", request.url));
   } else {
-    return NextResponse.redirect("/secret");
+    return NextResponse.redirect(new URL("/secret", request.url));
   }
 
   // Rewrite to URL
